@@ -3,7 +3,7 @@ import { useContext } from "react";
 import AuthContext from "../contexts/AuthProvider";
 
 const Home = () => {
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useContext(AuthContext) as any;
     const navigate = useNavigate();
 
     const logout = async () => {

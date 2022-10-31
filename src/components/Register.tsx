@@ -9,8 +9,8 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = '/register';
 
 const Register = () => {
-    const userRef = useRef();
-    const errRef = useRef();
+    const userRef = useRef() as any;
+    const errRef = useRef() as any;
 
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
@@ -45,7 +45,7 @@ const Register = () => {
         setErrMsg('');
     }, [user, pwd, matchPwd])
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault();
         // if button enabled with JS hack
         const v1 = USER_REGEX.test(user);
@@ -70,7 +70,7 @@ const Register = () => {
             setUser('');
             setPwd('');
             setMatchPwd('');
-        } catch (err) {
+        } catch (err:any) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 409) {
