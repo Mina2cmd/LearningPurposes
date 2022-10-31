@@ -1,15 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+// import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { AuthProvider } from './contexts/AuthProvider';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const App = React.lazy(() => import('./App'));
+
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          {/* <App /> */}
+          <Route path="/*" element={<App />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
