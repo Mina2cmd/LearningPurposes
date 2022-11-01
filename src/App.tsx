@@ -1,25 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import "./components/Layout";
-import {useNavigate,Link} from "react-router-dom";
+import {useNavigate,Link,Routes,Route} from "react-router-dom";
 import Layout from './components/Layout';
+import Login from './components/Login';
+import Register from './components/Register';
+import LinkPage from './components/LinkPage';
+import Unauthorized from './components/Unauthorized';
+import Editor from './components/Editor';
+import Home from './components/Home';
+import Lounge from './components/Lounge';
+import Missing from './components/Missing';
+import RequireAuth from './components/RequireAuth';
+import Admin from './components/Admin';
 
 function App() {
-  const navigate = useNavigate();
   return (
-    <div className="App">
-      <header className="App-header">
-        Hello
-      </header>
-      <main>
-        <Layout />
-      </main>
-      <footer>
-        <Link to="https://www.cloudhadoop.com/reactjs-change-default-port/#:~:text=How%20to%20change%20default%20port%20in%20React%20with,of%20an%20application.%20...%204%20Wrap%20up%20">Go to this</Link>
-        {/* <button className='btn btn-primary' onClick={()=>navigate('https://www.cloudhadoop.com/reactjs-change-default-port/#:~:text=How%20to%20change%20default%20port%20in%20React%20with,of%20an%20application.%20...%204%20Wrap%20up%20')}> Go to link</button> */}
-      </footer>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        {/* public routes  */}
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="linkpage" element={<LinkPage />} />
+        <Route path="unauthorized" element={<Unauthorized />} />
+
+        {/* we want to protect these routes  */}
+        <Route path="/" element={<Home />} />
+        <Route path="lounge" element={<Lounge />} />
+        <Route path="editor" element={<Editor />} />
+        <Route path="admin" element={<Admin />} />
+
+        {/* catch all errors */}
+        <Route path="*" element={<Missing />} />
+      </Route>
+    </Routes>
   );
 }
 
