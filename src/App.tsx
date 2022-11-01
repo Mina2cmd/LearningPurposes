@@ -1,5 +1,5 @@
 import "./components/Layout";
-import {useNavigate,Link,Routes,Route} from "react-router-dom";
+import {Navigate,Link,Routes,Route} from "react-router-dom";
 import Layout from './components/Layout';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -13,6 +13,7 @@ import RequireAuth from './components/RequireAuth';
 import Admin from './components/Admin';
 
 function App() {
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -23,13 +24,25 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* we want to protect these routes  */}
-        <Route path="/" element={<Home />} />
-        <Route path="lounge" element={<Lounge />} />
-        <Route path="editor" element={<Editor />} />
-        <Route path="admin" element={<Admin />} />
+        <Route element={<RequireAuth allowedRoles={[2001]}/>}>
+          <Route path="/" element={<Home />} />
+        </Route>
+      
+        <Route element={<RequireAuth allowedRoles={[1984,5150]}/>}>
+          <Route path="lounge" element={<Lounge />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={[1984]}/>}>
+          <Route path="editor" element={<Editor />} />
+        </Route>
+        
+        <Route element={<RequireAuth allowedRoles={[5150]}/>}>
+          <Route path="admin" element={<Admin />} />
+        </Route>
 
         {/* catch all errors */}
-        <Route path="*" element={<Missing />} />
+        {/* <Route path="*" element={<Missing />} /> */}
+        <Route path="*" element={<Navigate to="/register" />} />
       </Route>
     </Routes>
   );
