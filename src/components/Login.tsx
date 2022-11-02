@@ -32,18 +32,33 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ user, pwd }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
-            console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({ user, pwd, roles, accessToken });
+            // const response = await axios.post(LOGIN_URL,
+            //     JSON.stringify({ user, pwd }),
+            //     {
+            //         headers: { 'Content-Type': 'application/json' },
+            //         withCredentials: true
+            //     }
+            // );
+            // console.log(JSON.stringify(response?.data));
+            // //console.log(JSON.stringify(response));
+            // const accessToken = response?.data?.accessToken;
+            // const roles = response?.data?.roles;
+            if(user==="home"){
+                console.log("🚀 ~ file: Login.tsx ~ line 47 ~ handleSubmit ~ user home", user);
+                setAuth({ user, pwd, roles:[2001] });
+            }
+            else if(user==="lounge"){
+                console.log("🚀 ~ file: Login.tsx ~ line 51 ~ handleSubmit ~ user lounge", user)
+                setAuth({ user, pwd, roles: [1984,5150]});
+            }
+            else if(user==="editor"){
+                console.log("🚀 ~ file: Login.tsx ~ line 54 ~ handleSubmit ~ user editor", user);
+                setAuth({ user, pwd, roles: [1984]});
+            }
+            else if(user==="admin"){
+                console.log("🚀 ~ file: Login.tsx ~ line 58 ~ handleSubmit ~ user admin", user);
+                setAuth({ user, pwd, roles: [5150]});
+            }
             setUser('');
             setPwd('');
             navigate(from, { replace: true });
